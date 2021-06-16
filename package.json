@@ -1,0 +1,23 @@
+{
+  "name": "fily",
+  "version": "0.0.3",
+  "description": "A simple file library/wrapper for NodeJS",
+  "main": "lib/fily.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": {
+    "name": "Thomas Brandhorst",
+    "email": "info@code-sheep.nl",
+    "url": "https://code-sheep.nl"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ftp": "^0.3.10",
+    "lodash": "^4.17.21"
+  }
+}
