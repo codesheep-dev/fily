@@ -1,23 +1,27 @@
 {
   "name": "fily",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "A simple file library/wrapper for NodeJS",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/fily.js",
+  "bin": {
+    "fily": "lib/bin/fily.js"
+  },
+  "types": "lib/fily.d.ts",
+  "files": [
+    "lib/**/*",
+    "samples/*"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "build": "tsc",
+    "build": "npm run lint && npm run format && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": [
-    "lib/**/*"
-  ],
   "keywords": [
     "nodejs",
     "files",
@@ -28,11 +32,15 @@
     "email": "info@code-sheep.nl",
     "url": "https://code-sheep.nl"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codesheep-dev/fily.git"
+  },
   "license": "MIT",
   "dependencies": {
+    "commander": "^7.2.0",
     "dotenv": "^10.0.0",
-    "ftp": "^0.3.10",
-    "lodash": "^4.17.21"
+    "ftp": "^0.3.10"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",

@@ -1,3 +1,4 @@
+import { Config } from './../models/config.model';
 import { statSync } from 'fs';
 import { join } from 'path';
 
@@ -26,5 +27,19 @@ export async function getConfigFile() {
     }
 
     return config;
+  }
+}
+
+export function configFileShouldNotExist(): void {
+  const configPath: string = getConfigPath();
+  const error = new Error(`Fily config file already exists: ${configPath}`);
+
+  try {
+    statSync(configPath);
+    throw error;
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      throw error;
+    }
   }
 }
