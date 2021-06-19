@@ -1,9 +1,9 @@
-Fily is a file library/wrapper for use in NodeJS. Created to mitigate the amount of code a developer needs to write to store just a simple file. Works in combination with the [ExpressJS Framework](https://www.npmjs.com/package/express) and the [express-fileupload](https://www.npmjs.com/package/express-fileupload) package.
+Fily is a file library/wrapper for use in NodeJS. Created to mitigate the amount of code a developer needs to write to store just a simple file. Works (for now) only in combination with the [ExpressJS Framework](https://www.npmjs.com/package/express) and the [express-fileupload](https://www.npmjs.com/package/express-fileupload) package. Support for the [express-formidable](https://www.npmjs.com/package/express-formidable) package is also planned.
 
 ![Language](https://img.shields.io/github/languages/top/codesheep-dev/fily?style=for-the-badge)
 ![Dependencies](https://img.shields.io/david/codesheep-dev/fily?style=for-the-badge)
 ![Size](https://img.shields.io/bundlephobia/min/fily?style=for-the-badge)
-![Downloads](https://img.shields.io/npm/dm/fily?style=for-the-badge)
+![Downloads](https://img.shields.io/npm/dw/fily?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/codesheep-dev/fily?style=for-the-badge)
 ![License](https://img.shields.io/github/license/codesheep-dev/fily?style=for-the-badge)
 ![Version](https://img.shields.io/npm/v/fily?style=for-the-badge)
@@ -89,7 +89,7 @@ module.exports = {
         type: 'ftp',
         root: 'files',
         // The URL of the Ftp server.
-        url: process.env.MY_FTP_SERVER_URL,
+        host: process.env.MY_FTP_SERVER_URL,
         // The user of the Ftp server.
         user: process.env.MY_FTP_SERVER_USER,
         // The password of the Ftp server.
@@ -152,7 +152,6 @@ Options can also be passed to the method.
 fily.store(file, {
     filename: 'my-file.pdf',
     driver: 'my-other-disk',
-    useExpressFileUpload: true,
 });
 ```
 
@@ -163,13 +162,12 @@ The following options are available:
 | ----------- | ----------- |
 | `filename`    | Set an explicit filename for the file. |
 | `driver`      | The driver to use. Should be specified in `fily.config.js`. |
-| `useExpressFileUpload` | Set this to true if you're using the `express-fileupload` package. |
 
 ## Methods
 The following methods are availble:
 | Method | Description |
 | ------ | ----------- |
-| `store(file, options)` | Store a file.
+| `store(file, options)` | Store a file. Return value is the hash.
 | `update(file, options)` | Update a file. Filename should be the same.
 | `destroy(file, options)` | Destroy or remove a file.
 

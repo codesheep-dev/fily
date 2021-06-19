@@ -11,8 +11,9 @@ export interface Disk {
   driver: string;
   type: string;
   root: string;
-  url?: string;
+  host?: string;
   user?: string;
   password?: string;
   port?: number;
+  secure?: boolean;
 }

@@ -30,26 +30,15 @@ module.exports = {
         type: 'ftp',
         root: 'files',
         // The URL of the Ftp server.
-        url: process.env.MY_FTP_SERVER_URL,
+        host: process.env.MY_FTP_SERVER_URL,
         // The user of the Ftp server.
         user: process.env.MY_FTP_SERVER_USER,
         // The password of the Ftp server.
         password: process.env.MY_FTP_SERVER_PASSWORD,
         // The port of the Ftp server.
         port: 443,
-      },
-    ],
-  },
-};
-
-module.exports = {
-  filesystems: {
-    default: 'uploads',
-    disks: [
-      {
-        driver: 'uploads',
-        type: 'local',
-        root: '/uploads',
+        // Default is secure: true
+        secure: true,
       },
     ],
   },

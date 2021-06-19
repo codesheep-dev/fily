@@ -1,7 +1,7 @@
 {
   "name": "fily",
-  "version": "0.0.7",
-  "description": "A simple file library/wrapper for NodeJS",
+  "version": "0.0.8",
+  "description": "A simple file library/wrapper for ExpressJS",
   "main": "lib/fily.js",
   "bin": {
     "fily": "lib/bin/fily.js"
@@ -41,9 +41,11 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@types/md5": "^2.3.0",
+    "basic-ftp": "^4.6.6",
     "commander": "^7.2.0",
     "dotenv": "^10.0.0",
-    "ftp": "^0.3.10"
+    "md5": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
