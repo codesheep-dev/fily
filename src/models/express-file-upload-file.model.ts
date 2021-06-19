@@ -1,9 +1,6 @@
 export interface ExpressFileUploadFile {
   name: string;
-  data: {
-    type: string;
-    data: string;
-  };
+  data: string;
   size: number;
   encoding: string;
   tempFilePath: string;

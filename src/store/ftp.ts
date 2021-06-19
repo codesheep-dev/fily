@@ -20,8 +20,8 @@ export async function storeFtp(file: ExpressFileUploadFile, filename: string, di
 
     if (file.tempFilePath !== '') {
       stream = createReadStream(file.tempFilePath);
-    } else if (!!file.data && !!file.data.data) {
-      stream = Readable.from(file.data.data);
+    } else if (!!file.data) {
+      stream = Readable.from(file.data);
     } else {
       throw new Error('The provided file does not support Express File Upload.');
     }

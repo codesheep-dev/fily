@@ -21,8 +21,8 @@ export async function storeAws(file: ExpressFileUploadFile, filename: string, di
 
       if (file.tempFilePath !== '') {
         stream = createReadStream(file.tempFilePath);
-      } else if (!!file.data && !!file.data.data) {
-        stream = Readable.from(file.data.data);
+      } else if (!!file.data) {
+        stream = Readable.from(file.data);
       } else {
         return reject(new Error('The provided file does not support Express File Upload.'));
       }
@@ -36,7 +36,7 @@ export async function storeAws(file: ExpressFileUploadFile, filename: string, di
         (error: any, data: any) => {
           if (error) return reject(error);
 
-          return data.Location;
+          return resolve(data.Location);
         },
       );
     } catch (error: any) {

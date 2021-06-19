@@ -15,7 +15,7 @@ export async function connect(disk: Disk): Promise<Client> {
       host: disk.host,
       user: disk.user,
       password: disk.password,
-      secure: disk.secure || true,
+      secure: disk.hasOwnProperty('secure') ? disk.secure : true,
     });
 
     return client;

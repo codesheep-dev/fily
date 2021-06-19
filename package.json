@@ -1,6 +1,6 @@
 {
   "name": "fily",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A simple file library/wrapper for ExpressJS",
   "main": "lib/fily.js",
   "bin": {
