@@ -1,6 +1,6 @@
 {
   "name": "fily",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A simple file library/wrapper for NodeJS",
   "main": "lib/fily.js",
   "bin": {
@@ -11,6 +11,9 @@
     "lib/**/*",
     "samples/*"
   ],
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
