@@ -24,7 +24,3 @@ cli
   });
 
 cli.parse(process.argv);
-
-// if (!cli.rawArgs || cli.rawArgs.length < 1) {
-//   cli.outputHelp();
-// }

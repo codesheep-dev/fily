@@ -6,7 +6,7 @@ require('dotenv').config();
 /**
  * The configuration
  */
-module.exports = {
+ module.exports = {
   filesystems: {
     /**
      * The default disk to use, will be used if no disk is provided
@@ -14,13 +14,13 @@ module.exports = {
     default: 'local',
 
     /**
-     * All of the disks. Available types are "local" and "ftp".
+     * All of the disks. Available types are "local", "ftp" and "aws".
      */
     disks: [
       {
         // The driver, c.q. the name of this disk.
         driver: 'local',
-        // The type of the disk, how to store files with this disk.
+        // The type of the disk, how it should store files.
         type: 'local',
         // The root directory where files will be placed.
         root: '/storage',
@@ -37,8 +37,20 @@ module.exports = {
         password: process.env.MY_FTP_SERVER_PASSWORD,
         // The port of the Ftp server.
         port: 443,
-        // Default is secure: true
-        secure: true,
+      },
+      {
+        driver: 'aws-s3',
+        type: 'aws',
+        // The key for AWS S3.
+        key: process.env.AWS_KEY,
+        // The secret for AWS S3.
+        secret: process.env.AWS_SECRET,
+        // The region for AWS S3.
+        region: process.env.AWS_REGION,
+        // The bucket for AWS S3.
+        bucket: process.env.AWS_BUCKET,
+        // The url for AWS S3.
+        url: process.env.AWS_URL,
       },
     ],
   },

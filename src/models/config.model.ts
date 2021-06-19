@@ -11,9 +11,18 @@ export interface Disk {
   driver: string;
   type: string;
   root: string;
+
+  // FTP
   host?: string;
   user?: string;
   password?: string;
   port?: number;
   secure?: boolean;
+
+  // AWS
+  key?: string;
+  secret?: string;
+  region?: string;
+  bucket?: string;
+  url?: string;
 }

@@ -3,8 +3,8 @@ import { Disk } from './../models/config.model';
 import { createReadStream } from 'fs';
 import { Readable } from 'stream';
 import { connect } from '../utils/ftp';
-import * as md5 from 'md5';
 import { streamToBuffer } from '../utils/streams';
+import md5 from 'md5';
 
 /**
  * Store a file with FTP
