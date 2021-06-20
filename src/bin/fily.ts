@@ -13,11 +13,9 @@ cli
   .command('init')
   .description('initialize a new boilerplate configuration file for Fily')
   .action(() => {
-    console.log('joe'); // tslint:disable-line
-
     try {
       init();
-      console.log(`Initialization successful. Please edit the generated \`fily.config.js\` file`); // tslint:disable-line
+      console.log('Initialization successful. Please edit the generated "fily.config.js" file'); // tslint:disable-line
     } catch (error: any) {
       handleError(error);
     }

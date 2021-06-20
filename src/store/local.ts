@@ -1,11 +1,11 @@
 import { Disk } from './../models/config.model';
 import { join } from 'path';
 import { checkExistingDiskRootFolder } from '../utils/filesystem';
-import { rename } from 'fs';
+import { rename, existsSync, unlinkSync } from 'fs';
 import { ExpressFileUploadFile } from '../models/express-file-upload-file.model';
 
 /**
- * Store a file locally using express-fileupload package
+ * Store a file locally
  *
  * @param file: ExpressFileUploadFile
  * @param filename: string
@@ -33,9 +33,28 @@ export function storeLocal(file: ExpressFileUploadFile, filename: string, disk: 
     } else {
       throw new Error('The provided file does not support Express File Upload.');
     }
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`Something went wrong storing the file locally: ${error}`);
   }
 
   return null;
+}
+
+/**
+ * Destroy a file locally
+ *
+ * @param path: string
+ * @param disk: Disk
+ * @return void
+ */
+export function destroyLocal(path: string, disk: Disk): void {
+  try {
+    if (!existsSync(path)) {
+      throw new Error(`The provided path ${path} does not exist!`);
+    }
+
+    unlinkSync(path);
+  } catch (error: any) {
+    throw new Error(`Something went wrong destroying the file locally: ${error}`);
+  }
 }

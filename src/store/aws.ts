@@ -44,3 +44,32 @@ export async function storeAws(file: ExpressFileUploadFile, filename: string, di
     }
   });
 }
+
+/**
+ * Destroy a file (object) on AWS. Returns the "Deletemarker" on AWS.
+ *
+ * @param path: string
+ * @param disk: Disk
+ * @returns Promise<string>
+ */
+export async function destroyAws(path: string, disk: Disk): Promise<string> {
+  return new Promise((resolve, reject) => {
+    try {
+      const s3: S3 = connect(disk);
+
+      s3.deleteObject(
+        {
+          Bucket: disk.bucket as string,
+          Key: path,
+        },
+        (error: any, data: any) => {
+          if (error) return reject(error);
+
+          return resolve(data.DeleteMarker);
+        },
+      );
+    } catch (error: any) {
+      return reject(new Error(`Could not destroy file with AWS: ${error}`));
+    }
+  });
+}
