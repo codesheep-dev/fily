@@ -82,8 +82,8 @@ module.exports = {
         driver: 'local',
         // The type of the disk, how it should store files.
         type: 'local',
-        // The root directory where files will be placed.
-        root: '/storage',
+        // The root directory where files will be placed. Don't put a slash before the path, as this will result in errors when trying to remove the file with `destroy()`.
+        root: 'storage',
       },
       {
         driver: 'my-ftp-server',
@@ -134,7 +134,7 @@ module.exports = {
       {
         driver: 'uploads',
         type:  DISK_TYPES.local, // Or just 'local'
-        root: '/uploads',
+        root: 'uploads',
       },
     ],
   },
@@ -190,7 +190,7 @@ router.post('/file', authorize, async (req, res) => {
       // Do stuff with error
     });
 
-  // Delete a file
+  // Delete a file - insert the full filename with the extension e.g. 'sample.pdf'
   await fily.destroy(file.name);
 });
 ```
