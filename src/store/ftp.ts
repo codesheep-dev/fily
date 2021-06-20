@@ -31,7 +31,7 @@ export async function storeFtp(file: ExpressFileUploadFile, filename: string, di
 
       ftp.close();
 
-      resolve();
+      resolve(file?.md5);
     } catch (error: any) {
       reject(new Error(`Something went wrong storing the file with FTP on disk "${disk.driver}": ${error}`));
     }

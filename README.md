@@ -109,8 +109,6 @@ module.exports = {
         region: process.env.AWS_REGION,
         // The bucket for AWS S3.
         bucket: process.env.AWS_BUCKET,
-        // The url for AWS S3.
-        url: process.env.AWS_URL,
       },
     ],
   },
@@ -191,6 +189,9 @@ router.post('/file', authorize, async (req, res) => {
     .catch((error) => {
       // Do stuff with error
     });
+
+  // Delete a file
+  await fily.destroy(file.name);
 });
 ```
 
@@ -209,7 +210,7 @@ The following options are available:
 
 | Option     | Description                                                 |
 | ---------- | ----------------------------------------------------------- |
-| `filename` | Set an explicit filename for the file.                      |
+| `filename` | Set an explicit filename for the file. This is ignored when using the method `destroy()`.                     |
 | `driver`   | The driver to use. Should be specified in `fily.config.js`. |
 
 ## Methods
@@ -217,7 +218,8 @@ The following options are available:
 The following methods are available:
 | Method | Description |
 | ------ | ----------- |
-| `store(file, options)` | Store a file. Return value is the hash, or with disk type `aws` it's the location in the bucket of the uploaded file.
+| `store(file, options)` | Store a file. Return value is the `hash` from `express-fileupload` File. If `aws` is used as a disk type, return value will be the `Location` property in the bucket. |
+| `destroy(filename, options)` | Destroy a file. Return value is void. |
 
 ## Types
 

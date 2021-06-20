@@ -24,5 +24,4 @@ export interface Disk {
   secret?: string;
   region?: string;
   bucket?: string;
-  url?: string;
 }
