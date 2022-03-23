@@ -1,38 +1,24 @@
-import { Disk } from './../models/config.model';
-import { join } from 'path';
+import { LocalDisk } from './../models/config.model';
+import { join, normalize } from 'path';
 import { checkExistingDiskRootFolder } from '../utils/filesystem';
-import { rename, existsSync, unlinkSync, readFileSync } from 'fs';
-import { ExpressFileUploadFile } from '../models/express-file-upload-file.model';
+import { existsSync, unlinkSync, createWriteStream } from 'fs';
+import { Readable } from 'stream';
 
 /**
  * Store a file locally
  *
- * @param file: ExpressFileUploadFile
+ * @param file: Readable
  * @param filename: string
  * @param disk: Disk
  * @return string|null
  */
-export function storeLocal(file: ExpressFileUploadFile, filename: string, disk: Disk): string | null {
+export function storeLocal(file: Readable, filename: string, disk: LocalDisk): string | null {
   try {
     const destination = join(process.cwd(), disk.root);
-
     checkExistingDiskRootFolder(destination);
 
-    if (file.tempFilePath !== '') {
-      rename(file.tempFilePath, destination, (error: any) => {
-        if (error) throw new Error(`Something went wrong: ${error}`);
-
-        return file?.md5;
-      });
-    } else if (!!file.mv) {
-      file.mv(join(destination, filename), (error: any) => {
-        if (error) throw new Error(`Error moving the file to the disk: ${error}`);
-
-        return file?.md5;
-      });
-    } else {
-      throw new Error('The provided file does not support Express File Upload.');
-    }
+    const stream = createWriteStream(join(destination, filename));
+    file.pipe(stream);
   } catch (error: any) {
     throw new Error(`Something went wrong storing the file locally: ${error}`);
   }
@@ -46,26 +32,28 @@ export function storeLocal(file: ExpressFileUploadFile, filename: string, disk: 
  * @param path: string
  * @return void
  */
-export function destroyLocal(path: string): void {
+export function destroyLocal(path: string, disk: LocalDisk): void {
   try {
-    if (!existsSync(path)) {
-      throw new Error(`The provided path ${path} does not exist!`);
+    const normalizedPath = normalize(join(disk.root, path));
+
+    if (!existsSync(normalizedPath)) {
+      throw new Error(`The provided path ${normalizedPath} does not exist!`);
     }
 
-    unlinkSync(path);
+    unlinkSync(normalizedPath);
   } catch (error: any) {
     throw new Error(`Something went wrong destroying the file locally: ${error}`);
   }
 }
 
-export function getLocal(path: string): void {
-  try {
-    if (!existsSync(path)) {
-      throw new Error(`The provided path ${path} does not exist!`);
-    }
+// export function getLocal(path: string): void {
+//   try {
+//     if (!existsSync(path)) {
+//       throw new Error(`The provided path ${path} does not exist!`);
+//     }
 
-    const file = readFileSync(path);
-  } catch (error: any) {
-    throw new Error(`Something went wrong getting the file locally: ${error}`);
-  }
-}
+//     const file = readFileSync(path);
+//   } catch (error: any) {
+//     throw new Error(`Something went wrong getting the file locally: ${error}`);
+//   }
+// }

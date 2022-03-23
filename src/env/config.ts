@@ -1,4 +1,3 @@
-import { Config } from './../models/config.model';
 import { statSync } from 'fs';
 import { join } from 'path';
 

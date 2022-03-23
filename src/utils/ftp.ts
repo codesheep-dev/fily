@@ -1,4 +1,4 @@
-import { Disk } from '../models/config.model';
+import { FTPDisk } from './../models/config.model';
 import { Client } from 'basic-ftp';
 
 /**
@@ -7,7 +7,7 @@ import { Client } from 'basic-ftp';
  * @param disk: Disk
  * @returns Promise<Client>
  */
-export async function connect(disk: Disk): Promise<Client> {
+export async function connect(disk: FTPDisk): Promise<Client> {
   const client = new Client();
 
   try {
@@ -15,7 +15,7 @@ export async function connect(disk: Disk): Promise<Client> {
       host: disk.host,
       user: disk.user,
       password: disk.password,
-      secure: disk.hasOwnProperty('secure') ? disk.secure : true,
+      secure: disk.secure ?? true,
     });
 
     return client;

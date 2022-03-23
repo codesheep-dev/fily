@@ -1,5 +1,5 @@
+import { S3Disk } from './../models/config.model';
 import AWS, { S3 } from 'aws-sdk';
-import { Disk } from '../models/config.model';
 
 /**
  * Create a new AWS S3 instance and return it.
@@ -7,7 +7,7 @@ import { Disk } from '../models/config.model';
  * @param disk: Disk
  * @returns S3
  */
-export function connect(disk: Disk): S3 {
+export function connect(disk: S3Disk): S3 {
   const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION } = process.env;
 
   if (!AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
