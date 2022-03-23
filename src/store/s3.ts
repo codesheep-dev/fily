@@ -15,7 +15,6 @@ export async function storeS3(file: Readable, filename: string, disk: S3Disk): P
   return new Promise((resolve, reject) => {
     try {
       const s3: S3 = connect(disk);
-      let stream: Readable;
 
       s3.upload(
         {

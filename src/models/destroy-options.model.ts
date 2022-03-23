@@ -1,3 +1,3 @@
-export type DestroyOptions {
+export type DestroyOptions = {
   driver?: string;
-}
+};

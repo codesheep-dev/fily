@@ -3,8 +3,8 @@
 ![Downloads](https://img.shields.io/npm/dt/fily?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/webbster-dev/fily?style=for-the-badge)
 ![License](https://img.shields.io/github/license/webbster-dev/fily?style=for-the-badge)
-![Version](https://img.shields.io/npm/v/fily?style=for-the-badge)
-![Node](https://img.shields.io/node/v/fily?style=for-the-badge)
+![Version](https://img.shields.io/npm/v/@webbster/fily?style=for-the-badge)
+![Node](https://img.shields.io/node/v/@webbster/fily?style=for-the-badge)
 ![Commit](https://img.shields.io/github/last-commit/webbster-dev/fily?style=for-the-badge)
 # Intro
 Ever wanted to simply store a file in your NodeJS project? I know I do, and it's not that straightforward as you think.
@@ -15,50 +15,23 @@ Fily aims to simplify the process of storing a file - whether you want to put th
 
 ```bash
 // With NPM
-$ npm i fily
+$ npm i @webbster/fily
 
 // With Yarn
-$ yarn add fily
-```
-
-## CLI Installation
-
-Fily comes with a CLI tool to quickly init a new configuration file.
-
-```bash
-// With NPM
-$ npm i -g fily
-
-// With Yarn
-$ yarn global add fily
-```
-
-## CLI Usage
-
-The Fily CLI has one command available.
-
-```bash
-Usage: fily [options] [command]
-
-Options:
-  -h, --help      display help for command
-
-Commands:
-  init            initialize a new boilerplate configuration file for Fily
-  help [command]  display help for command
+$ yarn add @webbster/fily
 ```
 
 ## Setup
 
-To start using Fily, execute the following in a terminal:
+To start using Fily, create a new file in the root of your project;
 
-```bash
-$ fily init
-```
+`fily.config.js`
 
-This will add a new `fily.config.js` file in your current directory. Contents of the file:
+The following configuration is possible;
 
 ```js
+> fily.config.js
+
 /**
  * The configuration
  */
