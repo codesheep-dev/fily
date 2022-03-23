@@ -1,36 +1,38 @@
 {
-  "name": "fily",
-  "version": "1.0.2",
-  "description": "A simple file library/wrapper for ExpressJS",
+  "name": "@webbster/fily",
+  "version": "1.0.0",
+  "description": "A simple file library/wrapper for NodeJS",
   "main": "lib/fily.js",
   "bin": {
     "fily": "lib/bin/fily.js"
   },
-  "types": "lib/fily.d.ts",
+  "types": "lib/**/*.d.ts",
   "files": [
     "lib/**/*",
     "samples/*"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "scripts": {
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
+    "publish": "npm publish --access public",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "build": "npm run lint && npm run format && tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No test specified\""
   },
   "keywords": [
     "nodejs",
     "files",
+    "file storage",
     "ftp",
-    "express",
-    "filesystem",
+    "expressjs",
+    "nestjs",
     "node",
     "aws",
     "s3",
@@ -38,21 +40,18 @@
   ],
   "author": {
     "name": "Thomas Brandhorst",
-    "email": "info@code-sheep.nl",
-    "url": "https://code-sheep.nl"
+    "email": "info@webbster.io",
+    "url": "https://webbster.io"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codesheep-dev/fily.git"
+    "url": "https://github.com/webbster-dev/fily.git"
   },
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.931.0",
     "basic-ftp": "^4.6.6",
-    "commander": "^7.2.0",
-    "date-fns": "^2.22.1",
-    "dotenv": "^10.0.0",
-    "md5": "^2.3.0"
+    "commander": "^7.2.0"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
@@ -62,9 +61,5 @@
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.3.4"
-  },
-  "peerDependencies": {
-    "express": "^4",
-    "express-fileupload": "^1"
   }
 }

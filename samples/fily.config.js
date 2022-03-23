@@ -14,7 +14,7 @@ require('dotenv').config();
     default: 'local',
 
     /**
-     * All of the disks. Available types are "local", "ftp" and "aws".
+     * All of the disks. Available types are "local", "ftp" and "s3".
      */
     disks: [
       {
@@ -40,17 +40,15 @@ require('dotenv').config();
       },
       {
         driver: 'aws-s3',
-        type: 'aws',
-        // The key for AWS S3.
+        type: 's3',
+        // The key for AWS S3. You can omit this if you've already got ENV value AWS_ACCESS_KEY_ID set.
         key: process.env.AWS_KEY,
-        // The secret for AWS S3.
+        // The secret for AWS S3. You can omit this if you've already got ENV value AWS_SECRET_ACCESS_KEY set.
         secret: process.env.AWS_SECRET,
         // The region for AWS S3.
         region: process.env.AWS_REGION,
         // The bucket for AWS S3.
         bucket: process.env.AWS_BUCKET,
-        // The url for AWS S3.
-        url: process.env.AWS_URL,
       },
     ],
   },

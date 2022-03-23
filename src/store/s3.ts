@@ -3,7 +3,7 @@ import { createReadStream } from 'fs';
 import { Readable } from 'stream';
 import { Disk } from '../models/config.model';
 import { ExpressFileUploadFile } from '../models/express-file-upload-file.model';
-import { connect } from '../utils/aws';
+import { connect } from '../utils/s3';
 
 /**
  * Upload a file with AWS S3. Returns the location of the uploaded file.
@@ -13,7 +13,7 @@ import { connect } from '../utils/aws';
  * @param disk: Disk
  * @returns string
  */
-export async function storeAws(file: ExpressFileUploadFile, filename: string, disk: Disk): Promise<string> {
+export async function storeS3(file: ExpressFileUploadFile, filename: string, disk: Disk): Promise<string> {
   return new Promise((resolve, reject) => {
     try {
       const s3: S3 = connect(disk);
@@ -40,7 +40,7 @@ export async function storeAws(file: ExpressFileUploadFile, filename: string, di
         },
       );
     } catch (error: any) {
-      return reject(new Error(`Could not store file with AWS: ${error}`));
+      return reject(new Error(`Could not store file with S3: ${error}`));
     }
   });
 }
@@ -52,7 +52,7 @@ export async function storeAws(file: ExpressFileUploadFile, filename: string, di
  * @param disk: Disk
  * @returns Promise<string>
  */
-export async function destroyAws(path: string, disk: Disk): Promise<string> {
+export async function destroyS3(path: string, disk: Disk): Promise<string> {
   return new Promise((resolve, reject) => {
     try {
       const s3: S3 = connect(disk);
@@ -69,7 +69,7 @@ export async function destroyAws(path: string, disk: Disk): Promise<string> {
         },
       );
     } catch (error: any) {
-      return reject(new Error(`Could not destroy file with AWS: ${error}`));
+      return reject(new Error(`Could not destroy file with S3: ${error}`));
     }
   });
 }

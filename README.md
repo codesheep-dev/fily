@@ -1,14 +1,15 @@
-Fily is a file library/wrapper for use in NodeJS. Created to mitigate the amount of code a developer needs to write to store just a simple file. Works (for now) only in combination with the [ExpressJS Framework](https://www.npmjs.com/package/express) and the [express-fileupload](https://www.npmjs.com/package/express-fileupload) package. Support for the [express-formidable](https://www.npmjs.com/package/express-formidable) package is planned.
-
 ![Language](https://img.shields.io/github/languages/top/codesheep-dev/fily?style=for-the-badge)
-![Dependencies](https://img.shields.io/david/codesheep-dev/fily?style=for-the-badge)
 ![Size](https://img.shields.io/bundlephobia/min/fily?style=for-the-badge)
-![Downloads](https://img.shields.io/npm/dw/fily?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/codesheep-dev/fily?style=for-the-badge)
-![License](https://img.shields.io/github/license/codesheep-dev/fily?style=for-the-badge)
+![Downloads](https://img.shields.io/npm/dt/fily?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/webbster-dev/fily?style=for-the-badge)
+![License](https://img.shields.io/github/license/webbster-dev/fily?style=for-the-badge)
 ![Version](https://img.shields.io/npm/v/fily?style=for-the-badge)
 ![Node](https://img.shields.io/node/v/fily?style=for-the-badge)
-![Commit](https://img.shields.io/github/last-commit/codesheep-dev/fily?style=for-the-badge)
+![Commit](https://img.shields.io/github/last-commit/webbster-dev/fily?style=for-the-badge)
+# Intro
+Ever wanted to simply store a file in your NodeJS project? I know I do, and it's not that straightforward as you think.
+
+Fily aims to simplify the process of storing a file - whether you want to put that file on the filesystem, send it over FTP or in an S3 Bucket - all while keeping the process simple and flexible.
 
 ## Installation
 
@@ -59,22 +60,17 @@ This will add a new `fily.config.js` file in your current directory. Contents of
 
 ```js
 /**
- * Optionally you can use the "dotenv" package here to use ENV values in this configuration.
- */
-require('dotenv').config();
-
-/**
  * The configuration
  */
 module.exports = {
   filesystems: {
     /**
-     * The default disk to use, will be used if no disk is provided
+     * The default disk to use, will be used if no disk is provided in Fily methods
      */
     default: 'local',
 
     /**
-     * All of the disks. Available types are "local", "ftp" and "aws".
+     * All of the disks (example). Available types are "local", "ftp" and "s3".
      */
     disks: [
       {
@@ -100,7 +96,7 @@ module.exports = {
       },
       {
         driver: 'aws-s3',
-        type: 'aws',
+        type: 's3',
         // The key for AWS S3.
         key: process.env.AWS_KEY,
         // The secret for AWS S3.
@@ -119,7 +115,7 @@ module.exports = {
 
 Fily works with `disks`, inspired by the [Laravel Framework](https://laravel.com/).
 
-Every disk has it's own configuration. This is handy if you have multiple places where you want to store files, for example a logo on an Ftp server but avatar uploads on your local filesystem. Also it makes things easy to configure and change, and keeps it in one place. A default disk can also be specified in `fily.config.js`.
+Every disk has it's own configuration. This is handy if you have multiple places where you want to store files, for example a logo on a FTP server but avatar uploads on your local filesystem. Also it makes things easy to configure and change, and keeps it in one place. A default disk can also be specified in `fily.config.js`.
 
 Let's say you want to store files in a local folder `/uploads`. Your configuration file would then look like this:
 
@@ -141,11 +137,8 @@ module.exports = {
 };
 ```
 
-Or, if you want to store something on AWS S3:
+Or, if you want to store something on an S3 Bucket:
 ```js
-// Load ENV values
-require("dotenv").config();
-
 // Optionally use the enum
 const { DISK_TYPES } = require("fily");
 
@@ -155,12 +148,12 @@ module.exports = {
     disks: [
       {
         driver: 's3',
-        type: DISK_TYPES.AWS, // Or just 'aws'
+        type: DISK_TYPES.S3, // Or just 's3'
+        // The key for AWS S3. You can omit this if you've already got ENV value AWS_ACCESS_KEY_ID set.
         key: process.env.AWS_KEY,
+        // The secret for AWS S3. You can omit this if you've already got ENV value AWS_SECRET_ACCESS_KEY set.
         secret: process.env.AWS_SECRET,
-        region: process.env.AWS_REGION,
         bucket: process.env.AWS_BUCKET,
-        url: process.env.AWS_URL,
       },
     ],
   },
@@ -218,7 +211,7 @@ The following options are available:
 The following methods are available:
 | Method | Description |
 | ------ | ----------- |
-| `store(file, options)` | Store a file. Return value is the `hash` from `express-fileupload` File. If `aws` is used as a disk type, return value will be the `Location` property in the bucket. |
+| `store(file, options)` | Store a file. Return value is the `hash` from `express-fileupload` File. If `s3` is used as a disk type, return value will be the `Location` property in the bucket. |
 | `destroy(filename, options)` | Destroy a file. Return value is void. |
 
 ## Types
@@ -228,4 +221,4 @@ The following disk types are available:
 | ------ | ----------- |
 | `local` | Stores files in the local filesystem. |
 | `ftp` | Stores files on a remote FTP server. |
-| `aws` | Stores files on an AWS S3 Bucket. |
+| `s3` | Stores files on an AWS S3 Bucket. |

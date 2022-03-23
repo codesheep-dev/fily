@@ -1,7 +1,7 @@
 import { Disk } from './../models/config.model';
 import { join } from 'path';
 import { checkExistingDiskRootFolder } from '../utils/filesystem';
-import { rename, existsSync, unlinkSync } from 'fs';
+import { rename, existsSync, unlinkSync, readFileSync } from 'fs';
 import { ExpressFileUploadFile } from '../models/express-file-upload-file.model';
 
 /**
@@ -44,10 +44,9 @@ export function storeLocal(file: ExpressFileUploadFile, filename: string, disk: 
  * Destroy a file locally
  *
  * @param path: string
- * @param disk: Disk
  * @return void
  */
-export function destroyLocal(path: string, disk: Disk): void {
+export function destroyLocal(path: string): void {
   try {
     if (!existsSync(path)) {
       throw new Error(`The provided path ${path} does not exist!`);
@@ -56,5 +55,17 @@ export function destroyLocal(path: string, disk: Disk): void {
     unlinkSync(path);
   } catch (error: any) {
     throw new Error(`Something went wrong destroying the file locally: ${error}`);
+  }
+}
+
+export function getLocal(path: string): void {
+  try {
+    if (!existsSync(path)) {
+      throw new Error(`The provided path ${path} does not exist!`);
+    }
+
+    const file = readFileSync(path);
+  } catch (error: any) {
+    throw new Error(`Something went wrong getting the file locally: ${error}`);
   }
 }
