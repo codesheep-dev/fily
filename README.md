@@ -6,7 +6,7 @@
 ![Version](https://img.shields.io/npm/v/@webbster/fily?style=for-the-badge)
 ![Node](https://img.shields.io/node/v/@webbster/fily?style=for-the-badge)
 ![Commit](https://img.shields.io/github/last-commit/webbster-dev/fily?style=for-the-badge)
-# Intro
+## Intro
 Ever wanted to simply store a file in your NodeJS project? I know I do, and it's not that straightforward as you think.
 
 Fily aims to simplify the process of storing a file - whether you want to put that file on the filesystem, send it over FTP or in an S3 Bucket - all while keeping the process simple and flexible.
@@ -78,6 +78,8 @@ module.exports = {
         region: process.env.AWS_REGION,
         // The bucket for AWS S3.
         bucket: process.env.AWS_BUCKET,
+        // Optionally specify which ACL to apply to the uploaded file. More info: https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html
+        acl: 'public-read',
       },
     ],
   },

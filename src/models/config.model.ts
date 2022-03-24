@@ -29,5 +29,6 @@ export type S3Disk = {
   key?: string;
   secret?: string;
   region?: string;
-  bucket?: string;
+  bucket: string;
+  acl?: string;
 };

@@ -15,19 +15,21 @@ export async function storeS3(file: Readable, filename: string, disk: S3Disk): P
   return new Promise((resolve, reject) => {
     try {
       const s3: S3 = connect(disk);
+      const params: S3.Types.PutObjectRequest = {
+        Bucket: disk.bucket as string,
+        Key: filename,
+        Body: file,
+      };
 
-      s3.upload(
-        {
-          Bucket: disk.bucket as string,
-          Key: filename,
-          Body: file,
-        },
-        (error: any, data: any) => {
-          if (error) return reject(error);
+      if (disk.acl) {
+        params.ACL = disk.acl;
+      }
 
-          return resolve(data.Location);
-        },
-      );
+      s3.upload(params, (error: any, data: any) => {
+        if (error) return reject(error);
+
+        return resolve(data.Location);
+      });
     } catch (error: any) {
       return reject(new Error(`Could not store file with S3: ${error}`));
     }
